@@ -22,6 +22,8 @@ import (
 	"github.com/lengrongfu/snapshots-quota/pkg/constant"
 	"github.com/lengrongfu/snapshots-quota/pkg/quota"
 	"github.com/lengrongfu/snapshots-quota/pkg/utils"
+
+	"github.com/dustin/go-humanize"
 )
 
 var (
@@ -130,6 +132,8 @@ func (p *plugin) PostStartContainer(ctx context.Context, pod *api.PodSandbox, ct
 			return nil
 		}
 	}
+
+	// get quota size
 	var size = quotaSize
 	if useEphemeralStorage {
 		ephemeralStorage, err := utils.GetResource(ctx, pod, ctr, "ephemeral-storage")
@@ -139,6 +143,7 @@ func (p *plugin) PostStartContainer(ctx context.Context, pod *api.PodSandbox, ct
 			size = ephemeralStorage - constant.Mib
 		}
 	}
+
 	if customerResource != "" {
 		ephemeralStorage, err := utils.GetResource(ctx, pod, ctr, customerResource)
 		if err != nil {
@@ -147,6 +152,17 @@ func (p *plugin) PostStartContainer(ctx context.Context, pod *api.PodSandbox, ct
 			size = ephemeralStorage
 		}
 	}
+
+	if quota, ok := pod.Annotations["snapshots-quota"]; ok {
+		klog.Infof("quota %s", quota)
+		size_tmp, err := humanize.ParseBytes(quota)
+		if err != nil {
+			klog.Errorf("parse quota %s error: %s", quota, err)
+			return err
+		}
+		size = size_tmp
+	}
+
 	q := quota.Quota{
 		Size: size,
 	}

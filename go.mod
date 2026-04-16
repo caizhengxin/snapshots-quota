@@ -4,11 +4,13 @@ go 1.23.0
 
 require (
 	github.com/containerd/containerd v1.7.27
-	github.com/containerd/log v0.1.0
 	github.com/containerd/nri v0.9.0
+	github.com/dustin/go-humanize v1.0.1
 	github.com/moby/sys/userns v0.1.0
 	github.com/pkg/errors v0.9.1
 	golang.org/x/sys v0.28.0
+	k8s.io/api v0.26.2
+	k8s.io/apimachinery v0.27.4
 	k8s.io/client-go v0.26.2
 	k8s.io/component-base v0.26.2
 	k8s.io/klog/v2 v2.90.1
@@ -27,6 +29,7 @@ require (
 	github.com/containerd/continuity v0.4.4 // indirect
 	github.com/containerd/errdefs v0.3.0 // indirect
 	github.com/containerd/fifo v1.1.0 // indirect
+	github.com/containerd/log v0.1.0 // indirect
 	github.com/containerd/platforms v0.2.1 // indirect
 	github.com/containerd/ttrpc v1.2.7 // indirect
 	github.com/containerd/typeurl/v2 v2.1.1 // indirect
@@ -96,8 +99,6 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.26.2 // indirect
-	k8s.io/apimachinery v0.27.4 // indirect
 	k8s.io/cri-api v0.27.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20230501164219-8b0f38b5fd1f // indirect
 	k8s.io/utils v0.0.0-20230220204549-a5ecb0141aa5 // indirect

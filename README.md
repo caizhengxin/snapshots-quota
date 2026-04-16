@@ -149,7 +149,7 @@ spec:
 
 ### Testing Quota
 
-1. Create a pod with the required label:
+1.Create a pod with the required label:
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -166,6 +166,28 @@ spec:
       requests:
         ephemeral-storage: "500Mi"
 ```
+
+2.Create a pod with the required label and annotation:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-quota
+  labels:
+    quota: enabled
+  annotations:
+    snapshots-quota: 100Mi
+spec:
+  containers:
+  - name: test
+    image: ubuntu:latest
+    command: 
+      - sleep
+      - infinity
+```
+
+![test-quota-pod.png](./test-quota-pod.png)
 
 ## Development
 
