@@ -2,7 +2,7 @@
 BINARY_NAME=quota-injector
 
 # Docker image name and tag
-IMAGE_NAME=ghcr.io/caizhengxin/snapshot-quota
+IMAGE_NAME=ghcr.io/caizhengxin/snapshots-quota
 IMAGE_TAG=latest
 
 # Go build flags
