@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   snapshots-quota:
   - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2026-04-16T06:16:57.04353579Z"
+    description: A Helm chart for Kubernetes
+    digest: 831759055fbeacea5911ba2decc15251251ee2641569cbe2421114bb88b82c84
+    name: snapshots-quota
+    type: application
+    urls:
+    - https://github.com/caizhengxin/snapshots-quota/releases/download/snapshots-quota-0.2.1/snapshots-quota-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     appVersion: 0.1.1
     created: "2026-04-16T03:40:10.626788152Z"
     description: A Helm chart for Kubernetes
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/caizhengxin/snapshots-quota/releases/download/snapshots-quota-0.1.1/snapshots-quota-0.1.1.tgz
     version: 0.1.1
-generated: "2026-04-16T03:40:10.626796928Z"
+generated: "2026-04-16T06:16:57.043544075Z"
