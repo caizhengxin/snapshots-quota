@@ -20,7 +20,7 @@ This project provides a solution for managing filesystem quotas in Kubernetes co
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/lengrongfu/snapshots-quota.git
+git clone https://github.com/caizhengxin/snapshots-quota.git
 cd snapshots-quota
 ```
 
@@ -40,7 +40,7 @@ make docker-buildx
 
 1. Add the Helm repository (if available):
 ```bash
-helm repo add --username lengrongfu --password  snapshots-quota https://raw.githubusercontent.com/lengrongfu/snapshots-quota/gh-pages
+helm repo add snapshots-quota https://raw.githubusercontent.com/caizhengxin/snapshots-quota/gh-pages
 helm repo update
 ```
 
@@ -52,16 +52,16 @@ helm install snapshots-quota snapshots-quota/snapshots-quota
 3. Customize the installation by creating a values file (e.g., `my-values.yaml`):
 ```yaml
 image:
-  registry: release-ci.daocloud.io
-  repository: zestu/snapshots-quota
+  registry: ghcr.io
+  repository: caizhengxin/snapshots-quota
   tag: latest
 
 nri:
   plugin:
     index: "99"
     name: snapshots-quota
-    quota: 1073741824  # 1GB in bytes
-    use_ephemeral_storage: true
+    quota: 32212254720  # 30Gi in bytes
+    use_ephemeral_storage: false
     enable_label_select: true
     label_select: "quota=enabled"
 ```
@@ -77,15 +77,15 @@ The following table lists the configurable parameters of the snapshots-quota cha
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `image.registry` | Container image registry | `release-ci.daocloud.io` |
-| `image.repository` | Container image repository | `zestu/snapshots-quota` |
+| `image.registry` | Container image registry | `ghcr.io` |
+| `image.repository` | Container image repository | `caizhengxin/snapshots-quota` |
 | `image.tag` | Container image tag | `latest` |
 | `nri.plugin.index` | Plugin index | `99` |
 | `nri.plugin.name` | Plugin name | `snapshots-quota` |
-| `nri.plugin.quota` | Default quota size in bytes | `1073741824` (1GB) |
+| `nri.plugin.quota` | Default quota size in bytes | `32212254720` (30Gi) |
 | `nri.plugin.use_ephemeral_storage` | Use pod ephemeral storage for quota | `false` |
 | `nri.plugin.enable_label_select` | Enable label-based filtering | `true` |
-| `nri.plugin.label_select` | Label select map | `""` |
+| `nri.plugin.label_select` | Label select map | `"quota=enabled"` |
 
 For more configuration options, see the [values.yaml](charts/snapshots-quota/values.yaml) file.
 
@@ -95,7 +95,7 @@ The plugin supports the following command-line flags:
 
 - `--name`: Plugin name (default: "quota-injector")
 - `--idx`: Plugin index (default: "00")
-- `--quota`: Default quota size in bytes (default: 1GB)
+- `--quota`: Default quota size in bytes (default: 30Gi)
 - `--containerd-state-dir`: Containerd state directory
 - `--containerd-root-dir`: Containerd root directory
 - `--containerd-base-path`: Containerd base path
@@ -127,10 +127,10 @@ spec:
     spec:
       containers:
       - name: quota-injector
-        image: release-ci.daocloud.io/zestu/snapshot-quota:latest
+        image: ghcr.io/caizhengxin/snapshots-quota:latest
         args:
-        - --quota=1073741824  # 1GB in bytes
-        - --use-ephemeral-storage=true
+        - --quota=32212254720  # 30Gi in bytes
+        - --use-ephemeral-storage=false
         - --enable-label-select=true
         - --label-select=quota=enabled
         volumeMounts:

@@ -4,8 +4,8 @@
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  registry: release-ci.daocloud.io
-  repository: zestu/snapshots-quota
+  registry: ghcr.io
+  repository: caizhengxin/snapshots-quota
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
@@ -65,7 +65,7 @@ nri:
   plugin:
     index: "99"
     name: snapshots-quota
-    quota: '1073741824' #this is global quota, default is 1Gi
+    quota: '32212254720' #this is global quota, default is 30Gi
     containerd_host_base_path: / # this is the default value
     containerd_container_base_path: /data # this is the default value
     containerd_root_dir: /var/lib/containerd # this is the default value
@@ -74,8 +74,8 @@ nri:
     containerd_namespace: k8s.io # this is the default value
     use_ephemeral_storage: false # use pod resource ephemeral-storage to set quota size
     enable_label_select: true # enable label select, only support match label pod
-    label_select: "app=zestu"
-    customer_resource: "disk.io/size"
+    label_select: "quota=enabled"
+    customer_resource: ""
     skip_rootfs: true
   runtime:
     patchConfig: false
