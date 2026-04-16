@@ -1,9 +1,11 @@
+VERSION ?= latest
+
 # Binary name
 BINARY_NAME=quota-injector
 
 # Docker image name and tag
 IMAGE_NAME=ghcr.io/caizhengxin/snapshots-quota
-IMAGE_TAG=latest
+IMAGE_TAG=$(VERSION)
 
 # Go build flags
 GO_BUILD_FLAGS=CGO_ENABLED=1

@@ -19,7 +19,7 @@ RUN go mod download
 COPY . .
 
 # Build the application with CGO enabled
-RUN CGO_ENABLED=1 GOOS=linux go build -o quota-injector ./cmd/quota-injector.go
+RUN CGO_ENABLED=1 GOOS=linux go build -ldflags "-s -w" -o quota-injector ./cmd/quota-injector.go
 
 # Final stage
 FROM ubuntu:22.04
