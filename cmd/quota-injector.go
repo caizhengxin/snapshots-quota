@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync"
 	"syscall"
@@ -84,10 +85,15 @@ func (p *plugin) PostCreateContainer(ctx context.Context, pod *api.PodSandbox, c
 		klog.Errorf("from containerID: %s get container info error : %s", ctr.Id, err)
 		return err
 	}
-	if c.Snapshotter != containerd.DefaultSnapshotter {
-		klog.Warning("container is not use overlayfs snapshotter")
+	// if c.Snapshotter != containerd.DefaultSnapshotter {
+	// 	klog.Warning("container is not use overlayfs snapshotter")
+	// 	return nil
+	// }
+	if !slices.Contains(constant.SupportedSnapshotters, c.Snapshotter) {
+		klog.Warningf("container %s use unsupported snapshotter %s", ctr.Id, c.Snapshotter)
 		return nil
 	}
+
 	mounts, err := p.client.SnapshotService(c.Snapshotter).Mounts(ctx, c.SnapshotKey)
 	if err != nil {
 		klog.Errorf("Snapshotter get mounts error: %s", err)

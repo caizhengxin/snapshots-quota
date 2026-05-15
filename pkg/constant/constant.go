@@ -22,3 +22,6 @@ const (
 const (
 	Mib = 10 * 1024 * 1024
 )
+
+// SupportedSnapshotters lists all supported snapshotter types for Linux
+var SupportedSnapshotters = []string{"overlayfs", "nydus", "stargz"}
