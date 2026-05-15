@@ -27,11 +27,13 @@ jobs:
       - name: Set Version
         id: set-version
         run: |
-          VERSION=latest
-          if [[ ${GITHUB_REF} == 'refs/tags/v*' ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            VERSION="${{ github.ref_name }}"
+            # VERSION="${VERSION#v}"
+          else
+            VERSION=latest
           fi
-          echo "VERSION=$VERSION"
+
           echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Push images
         env:
